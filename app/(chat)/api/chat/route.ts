@@ -51,8 +51,14 @@ export async function POST(request: Request) {
   const chat = await getChatById({ id });
 
   if (!chat) {
-    const title = await generateTitleFromUserMessage({ message: userMessage });
+    let title = userMessage.content;
+    try {
+      title = await generateTitleFromUserMessage({ message: userMessage });
+    } catch (error) {
+      console.error('Failed to generate title');
+    }
     await saveChat({ id, userId: session.user.id, email: session.user.email, title });
+
   }
 
   await saveMessages({

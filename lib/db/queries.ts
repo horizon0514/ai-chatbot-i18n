@@ -55,7 +55,7 @@ export async function saveChat({
 }: {
   id: string;
   userId: string;
-  email: string;
+  email?: string | null;
   title: string;
 }) {
   try {
@@ -65,7 +65,7 @@ export async function saveChat({
       .insert(user)
       .values({
         id: userId,  // 使用外部系统的用户ID
-        email: email ?? `example${userId}@example.com`,  // 必要的占位信息
+        email: email || `example${userId}@example.com`,  // 必要的占位信息
       })
       .onConflictDoNothing()
       .returning();
@@ -372,7 +372,6 @@ export async function getUserByToken(token: string) {
   try {
     return [{
       id: 'f74dc2b3-fa06-4547-9dc7-e7fece6116e7',
-      userId: 'f74dc2b3-fa06-4547-9dc7-e7fece6116e7',
       name: 'John Doe',
       email: 'john.doe@example.com',
     }]

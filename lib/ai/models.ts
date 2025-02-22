@@ -3,32 +3,38 @@ import {
   customProvider,
 } from 'ai';
 
-
 const openai = createOpenAI({
   baseURL: 'https://geekai.co/api/v1',
   apiKey: 'sk-370PqaleM3DoQ3PdN0RsKwMKsIxOljBAhEMdbqhdq11lY9mb',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
 });
 
 export const DEFAULT_CHAT_MODEL: string = 'openai/gpt-4o-mini';
 
 export const myProvider = customProvider({
   languageModels: {
-    'openai/gpt-4o-mini': openai('gpt-4o-mini', {
+    'openai/gpt-4o-mini': openai('gpt-4o-mini'),
+    'openai/gpt-4o': openai('gpt-4o'),
+    'openai/gpt-4-turbo': openai('gpt-4-turbo'),
+    'grok3': openai('grok-3'),
+    'doubao-1.5-pro-32k': openai('doubao-1.5-pro-32k'),
+    'deepseek/deepseek-v3:full': openai('deepseek/deepseek-v3:full'),
+    'deepseek/deepseek-r1:free': openai('deepseek/deepseek-r1:free', {
       simulateStreaming: true,
     }),
-    'openai/gpt-4o': openai('gpt-4o', {
+    'deepseek/deepseek-v3:free': openai('deepseek/deepseek-v3:free', {
       simulateStreaming: true,
     }),
-    'openai/gpt-4-turbo': openai('gpt-4-turbo', {
+    'deepseek-r1-distill-llama-70b': openai('deepseek-r1-distill-llama-70b', {
       simulateStreaming: true,
     }),
-    'title-model': openai('gpt-4o-mini', {
+    'deepseek-r1-distill-qwen-32b': openai('deepseek-r1-distill-qwen-32b', {
       simulateStreaming: true,
     }),
+    'chat-model-reasoning': openai('sonar-reasoning', {
+      simulateStreaming: true,
+    }),// 这个模型是用来联网推理的，必须。
+    'title-model': openai('gpt-4o-mini'), // 这个模型是用来生成标题的，必须。
+    'artifact-model': openai('gpt-4o-mini'), // 这个模型是用来生成artifact的，必须。否则写文章会报错
   },
 });
 
@@ -53,5 +59,40 @@ export const chatModels: Array<ChatModel> = [
     id: 'openai/gpt-4-turbo',
     name: 'GPT-4-turbo',
     description: 'Turbo模型，快速，轻量级任务',
+  },
+  {
+    id: 'grok3',
+    name: 'Grok-3',
+    description: 'Grok 3 标准版',
+  },
+  {
+    id: 'doubao-1.5-pro-32k',
+    name: 'Doubao-1.5-pro',
+    description: 'Doubao 1.5 Pro 32k',
+  },
+  {
+    id: 'deepseek/deepseek-v3:full',
+    name: 'DeepSeek-v3',
+    description: 'DeepSeek-V3 满血版',
+  },
+  {
+    id: 'deepseek/deepseek-r1:free',
+    name: 'DeepSeek-R1',
+    description: 'DeepSeek-R1 免费版',
+  },
+  {
+    id: 'deepseek/deepseek-v3:free',
+    name: 'DeepSeek-V3-free',
+    description: 'DeepSeek-V3 免费版',
+  },
+  {
+    id: 'deepseek-r1-distill-llama-70b',
+    name: 'DeepSeek-R1-Distill-Llama-70b',
+    description: 'DeepSeek-R1 蒸馏版 Llama 70b',
+  },
+  {
+    id: 'deepseek-r1-distill-qwen-32b',
+    name: 'DeepSeek-R1-Distill-Qwen-32b',
+    description: 'DeepSeek-R1 蒸馏版 Qwen 32b',
   },
 ];

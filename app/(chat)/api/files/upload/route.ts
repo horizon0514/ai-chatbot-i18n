@@ -1,7 +1,7 @@
-import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-
+import { writeFile } from 'fs/promises';
+import path from 'path';
 import { auth } from '@/app/(auth)/auth';
 
 // Use Blob instead of File since File is not available in Node.js environment
@@ -16,6 +16,17 @@ const FileSchema = z.object({
       message: '文件类型应为JPEG或PNG',
     }),
 });
+
+// 确保上传目录存在
+const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
+
+// 生成唯一的文件名
+function generateUniqueFileName(originalName: string) {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 1000);
+  const ext = path.extname(originalName);
+  return `${timestamp}-${random}${ext}`;
+}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -46,20 +57,29 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
 
-    // Get filename from formData since Blob doesn't have name property
-    const filename = (formData.get('file') as File).name;
-    const fileBuffer = await file.arrayBuffer();
+    // 获取原始文件名并生成唯一文件名
+    const originalFilename = (formData.get('file') as File).name;
+    const uniqueFilename = generateUniqueFileName(originalFilename);
+    
+    // 构建完整的文件路径
+    const filePath = path.join(UPLOAD_DIR, uniqueFilename);
+    
+    // 将文件内容转换为Buffer
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    try {
-      const data = await put(`${filename}`, fileBuffer, {
-        access: 'public',
-      });
+    // 写入文件
+    await writeFile(filePath, fileBuffer);
 
-      return NextResponse.json(data);
-    } catch (error) {
-      return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
-    }
+    // 返回文件的URL路径
+    const fileUrl = `/uploads/${uniqueFilename}`;
+
+    return NextResponse.json({
+      url: fileUrl,
+      pathname: uniqueFilename
+    });
+
   } catch (error) {
+    console.error('Upload error:', error);
     return NextResponse.json(
       { error: 'Failed to process request' },
       { status: 500 },

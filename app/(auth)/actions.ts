@@ -82,3 +82,14 @@ export const register = async (
     return { status: 'failed' };
   }
 };
+
+export const tokenLogin = async (
+  token: string,
+): Promise<LoginActionState> => {
+  await signIn('token', {
+    token: token,
+    redirect: true,
+    callbackUrl: "/chat"
+  });
+  return { status: 'success' };
+};

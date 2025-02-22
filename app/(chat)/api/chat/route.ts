@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
   if (!chat) {
     const title = await generateTitleFromUserMessage({ message: userMessage });
-    await saveChat({ id, userId: session.user.id, title });
+    await saveChat({ id, userId: session.user.id, email: session.user.email, title });
   }
 
   await saveMessages({
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
           selectedChatModel === 'chat-model-reasoning'
             ? []
             : [
-                'getWeather',
+                // 'getWeather',
                 'createDocument',
                 'updateDocument',
                 'requestSuggestions',
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
         experimental_transform: smoothStream({ chunking: 'word' }),
         experimental_generateMessageId: generateUUID,
         tools: {
-          getWeather,
+          // getWeather,
           createDocument: createDocument({ session, dataStream }),
           updateDocument: updateDocument({ session, dataStream }),
           requestSuggestions: requestSuggestions({

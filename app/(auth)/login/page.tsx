@@ -2,16 +2,21 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useEffect, useState, use } from 'react';
 import { toast } from 'sonner';
 
 import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
 
-import { login, type LoginActionState } from '../actions';
+import { login, type LoginActionState, tokenLogin } from '../actions';
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { token?: string };
+}) {
   const router = useRouter();
+  const params = use(searchParams as any);
 
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -22,6 +27,12 @@ export default function Page() {
       status: 'idle',
     },
   );
+
+  useEffect(() => {
+    if (params.token) {
+      tokenLogin(params.token);
+    }
+  }, [params.token]);
 
   useEffect(() => {
     if (state.status === 'failed') {

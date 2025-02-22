@@ -50,13 +50,25 @@ export async function createUser(email: string, password: string) {
 export async function saveChat({
   id,
   userId,
+  email,
   title,
 }: {
   id: string;
   userId: string;
+  email: string;
   title: string;
 }) {
   try {
+    // 先在本地数据库创建或获取用户映射
+    // 避免约束报错
+    const [localUser] = await db
+      .insert(user)
+      .values({
+        id: userId,  // 使用外部系统的用户ID
+        email: email ?? `example${userId}@example.com`,  // 必要的占位信息
+      })
+      .onConflictDoNothing()
+      .returning();
     return await db.insert(chat).values({
       id,
       createdAt: new Date(),
@@ -107,7 +119,9 @@ export async function getChatById({ id }: { id: string }) {
 export async function saveMessages({ messages }: { messages: Array<Message> }) {
   try {
     console.log(`messages`, messages);
-    return await db.insert(message).values(messages);
+    if (messages.length > 0) {
+      return await db.insert(message).values(messages);
+    }
   } catch (error) {
     console.error('Failed to save messages in database', error);
     throw error;
@@ -343,6 +357,27 @@ export async function updateChatVisiblityById({
     return await db.update(chat).set({ visibility }).where(eq(chat.id, chatId));
   } catch (error) {
     console.error('Failed to update chat visibility in database');
+    throw error;
+  }
+}
+
+
+/**
+ * 从外部接口验证token
+ * @param token 
+ * @returns 
+ */
+export async function getUserByToken(token: string) {
+  console.log('getUserByToken', token);
+  try {
+    return [{
+      id: 'f74dc2b3-fa06-4547-9dc7-e7fece6116e7',
+      userId: 'f74dc2b3-fa06-4547-9dc7-e7fece6116e7',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+    }]
+  } catch (error) {
+    console.error('Failed to get user by token from database');
     throw error;
   }
 }

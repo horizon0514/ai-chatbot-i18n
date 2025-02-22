@@ -201,7 +201,7 @@ function PureMultimodalInput({
           <SuggestedActions append={append} chatId={chatId} />
         )} */}
 
-      <input
+      {/* <input
         type="file"
         className="fixed -top-4 -left-4 size-0.5 opacity-0 pointer-events-none"
         ref={fileInputRef}
@@ -228,7 +228,7 @@ function PureMultimodalInput({
             />
           ))}
         </div>
-      )}
+      )} */}
 
       <Textarea
         ref={textareaRef}
@@ -254,9 +254,9 @@ function PureMultimodalInput({
         }}
       />
 
-      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
+      {/* <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
-      </div>
+      </div> */}
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
         {isLoading ? (

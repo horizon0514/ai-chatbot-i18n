@@ -1,27 +1,34 @@
-import { openai } from '@ai-sdk/openai';
-import { fireworks } from '@ai-sdk/fireworks';
+import { createOpenAI } from '@ai-sdk/openai';
 import {
   customProvider,
-  extractReasoningMiddleware,
-  wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
+
+const openai = createOpenAI({
+  baseURL: 'https://geekai.co/api/v1',
+  apiKey: 'sk-370PqaleM3DoQ3PdN0RsKwMKsIxOljBAhEMdbqhdq11lY9mb',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+});
+
+export const DEFAULT_CHAT_MODEL: string = 'openai/gpt-4o-mini';
 
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': openai('gpt-4o-mini'),
-    'chat-model-large': openai('gpt-4o'),
-    'chat-model-reasoning': wrapLanguageModel({
-      model: fireworks('accounts/fireworks/models/deepseek-r1'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' }),
+    'openai/gpt-4o-mini': openai('gpt-4o-mini', {
+      simulateStreaming: true,
     }),
-    'title-model': openai('gpt-4-turbo'),
-    'artifact-model': openai('gpt-4o-mini'),
-  },
-  imageModels: {
-    'small-model': openai.image('dall-e-2'),
-    'large-model': openai.image('dall-e-3'),
+    'openai/gpt-4o': openai('gpt-4o', {
+      simulateStreaming: true,
+    }),
+    'openai/gpt-4-turbo': openai('gpt-4-turbo', {
+      simulateStreaming: true,
+    }),
+    'title-model': openai('gpt-4o-mini', {
+      simulateStreaming: true,
+    }),
   },
 });
 
@@ -33,18 +40,18 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'chat-model-small',
-    name: 'Small model',
+    id: 'openai/gpt-4o-mini',
+    name: 'GPT-4o-mini',
     description: 'Small model for fast, lightweight tasks',
   },
   {
-    id: 'chat-model-large',
-    name: 'Large model',
+    id: 'openai/gpt-4o',
+    name: 'GPT-4o',
     description: 'Large model for complex, multi-step tasks',
   },
   {
-    id: 'chat-model-reasoning',
-    name: 'Reasoning model',
-    description: 'Uses advanced reasoning',
+    id: 'openai/gpt-4-turbo',
+    name: 'GPT-4-turbo',
+    description: 'Turbo model for fast, lightweight tasks',
   },
 ];

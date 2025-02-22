@@ -46,7 +46,7 @@ export const sheetArtifact = new Artifact<'sheet', Metadata>({
   actions: [
     {
       icon: <UndoIcon size={18} />,
-      description: 'View Previous version',
+      description: '查看上一个版本',
       onClick: ({ handleVersionChange }) => {
         handleVersionChange('prev');
       },
@@ -60,7 +60,7 @@ export const sheetArtifact = new Artifact<'sheet', Metadata>({
     },
     {
       icon: <RedoIcon size={18} />,
-      description: 'View Next version',
+      description: '查看下一个版本',
       onClick: ({ handleVersionChange }) => {
         handleVersionChange('next');
       },
@@ -74,7 +74,7 @@ export const sheetArtifact = new Artifact<'sheet', Metadata>({
     },
     {
       icon: <CopyIcon />,
-      description: 'Copy as .csv',
+      description: '复制为.csv',
       onClick: ({ content }) => {
         const parsed = parse<string[]>(content, { skipEmptyLines: true });
 
@@ -85,29 +85,29 @@ export const sheetArtifact = new Artifact<'sheet', Metadata>({
         const cleanedCsv = unparse(nonEmptyRows);
 
         navigator.clipboard.writeText(cleanedCsv);
-        toast.success('Copied csv to clipboard!');
+        toast.success('复制到剪贴板！');
       },
     },
   ],
   toolbar: [
     {
-      description: 'Format and clean data',
+      description: '格式化和清理数据',
       icon: <SparklesIcon />,
       onClick: ({ appendMessage }) => {
         appendMessage({
           role: 'user',
-          content: 'Can you please format and clean the data?',
+          content: '请格式化和清理数据？',
         });
       },
     },
     {
-      description: 'Analyze and visualize data',
+      description: '分析和可视化数据',
       icon: <LineChartIcon />,
       onClick: ({ appendMessage }) => {
         appendMessage({
           role: 'user',
           content:
-            'Can you please analyze and visualize the data by creating a new code artifact in python?',
+            '请分析和可视化数据，并创建一个python代码片段？',
         });
       },
     },

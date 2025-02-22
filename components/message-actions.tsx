@@ -45,13 +45,13 @@ export function PureMessageActions({
               variant="outline"
               onClick={async () => {
                 await copyToClipboard(message.content as string);
-                toast.success('Copied to clipboard!');
+                toast.success('复制到剪贴板！');
               }}
             >
               <CopyIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Copy</TooltipContent>
+          <TooltipContent>复制</TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -71,7 +71,7 @@ export function PureMessageActions({
                 });
 
                 toast.promise(upvote, {
-                  loading: 'Upvoting Response...',
+                  loading: '点赞中...',
                   success: () => {
                     mutate<Array<Vote>>(
                       `/api/vote?chatId=${chatId}`,
@@ -96,14 +96,14 @@ export function PureMessageActions({
 
                     return 'Upvoted Response!';
                   },
-                  error: 'Failed to upvote response.',
+                  error: '点赞失败。',
                 });
               }}
             >
               <ThumbUpIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Upvote Response</TooltipContent>
+          <TooltipContent>点赞</TooltipContent>
         </Tooltip>
 
         <Tooltip>
@@ -123,7 +123,7 @@ export function PureMessageActions({
                 });
 
                 toast.promise(downvote, {
-                  loading: 'Downvoting Response...',
+                  loading: '取消点赞中...',
                   success: () => {
                     mutate<Array<Vote>>(
                       `/api/vote?chatId=${chatId}`,
@@ -148,14 +148,14 @@ export function PureMessageActions({
 
                     return 'Downvoted Response!';
                   },
-                  error: 'Failed to downvote response.',
+                  error: '取消点赞失败。',
                 });
               }}
             >
               <ThumbDownIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Downvote Response</TooltipContent>
+          <TooltipContent>取消点赞</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

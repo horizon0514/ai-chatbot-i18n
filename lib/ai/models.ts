@@ -42,16 +42,16 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'openai/gpt-4o-mini',
     name: 'GPT-4o-mini',
-    description: 'Small model for fast, lightweight tasks',
+    description: '小模型，快速，轻量级任务',
   },
   {
     id: 'openai/gpt-4o',
     name: 'GPT-4o',
-    description: 'Large model for complex, multi-step tasks',
+    description: '大模型，复杂，多步骤任务',
   },
   {
     id: 'openai/gpt-4-turbo',
     name: 'GPT-4-turbo',
-    description: 'Turbo model for fast, lightweight tasks',
+    description: 'Turbo模型，快速，轻量级任务',
   },
 ];

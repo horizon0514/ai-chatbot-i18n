@@ -77,20 +77,20 @@ export async function POST(request: Request) {
             ? []
             : [
                 // 'getWeather',
-                'createDocument',
-                'updateDocument',
-                'requestSuggestions',
+                // 'createDocument',
+                // 'updateDocument',
+                // 'requestSuggestions',
               ],
         experimental_transform: smoothStream({ chunking: 'word' }),
         experimental_generateMessageId: generateUUID,
         tools: {
           // getWeather,
-          createDocument: createDocument({ session, dataStream }),
-          updateDocument: updateDocument({ session, dataStream }),
-          requestSuggestions: requestSuggestions({
-            session,
-            dataStream,
-          }),
+          // createDocument: createDocument({ session, dataStream }),
+          // updateDocument: updateDocument({ session, dataStream }),
+          // requestSuggestions: requestSuggestions({
+          //   session,
+          //   dataStream,
+          // }),
         },
         onFinish: async ({ response, reasoning }) => {
           if (session.user?.id) {
@@ -128,7 +128,8 @@ export async function POST(request: Request) {
         sendReasoning: true,
       });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error('Error in streamText', error);
       return 'Oops, an error occured!';
     },
   });

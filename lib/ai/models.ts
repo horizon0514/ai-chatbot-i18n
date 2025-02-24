@@ -5,7 +5,7 @@ import {
 
 const openai = createOpenAI({
   baseURL: 'https://geekai.co/api/v1',
-  apiKey: 'sk-370PqaleM3DoQ3PdN0RsKwMKsIxOljBAhEMdbqhdq11lY9mb',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export const DEFAULT_CHAT_MODEL: string = 'openai/gpt-4o-mini';

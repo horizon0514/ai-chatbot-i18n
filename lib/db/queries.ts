@@ -17,6 +17,7 @@ import {
   vote,
 } from './schema';
 import { ArtifactKind } from '@/components/artifact';
+import { v4 as uuidv4 } from 'uuid';
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -39,8 +40,9 @@ export async function createUser(email: string, password: string) {
   const salt = genSaltSync(10);
   const hash = hashSync(password, salt);
 
+  const id = uuidv4();
   try {
-    return await db.insert(user).values({ email, password: hash });
+    return await db.insert(user).values({ id, email, password: hash });
   } catch (error) {
     console.error('Failed to create user in database');
     throw error;
@@ -370,10 +372,16 @@ export async function updateChatVisiblityById({
 export async function getUserByToken(token: string) {
   console.log('getUserByToken', token);
   try {
+    const result = await fetch('http://121.43.239.124:3001/performance/api/admin-api/third/user/getInfo', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const data = await result.json()
     return [{
-      id: 'f74dc2b3-fa06-4547-9dc7-e7fece6116e7',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
+      id: data.data.id,
+      name: data.data.name,
+      email: data.data.name,
     }]
   } catch (error) {
     console.error('Failed to get user by token from database');

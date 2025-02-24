@@ -42,7 +42,7 @@ export const {
         // 例如：从外部数据库查询对应 token 的用户
         const users = await getUserByToken(token);
         if (users.length === 0) return null;
-        
+        console.log('users', users)
         return users[0] as any;
       },
     }),

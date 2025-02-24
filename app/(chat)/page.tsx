@@ -6,23 +6,29 @@ import { generateUUID } from '@/lib/utils';
 import { DataStreamHandler } from '@/components/data-stream-handler';
 
 export default async function Page() {
-  const id = generateUUID();
+  let modelIdFromCookie: string | undefined;
+  let id: string;
+  try {
+    id = generateUUID();
 
-  const cookieStore = await cookies();
-  const modelIdFromCookie = cookieStore.get('chat-model');
+    const cookieStore = await cookies();
+    modelIdFromCookie = cookieStore.get('chat-model')?.value;
+  } catch (error) {
+    console.error(error);
+  }
 
   if (!modelIdFromCookie) {
     return (
       <>
         <Chat
-          key={id}
-          id={id}
+          key={id!}
+          id={id!}
           initialMessages={[]}
           selectedChatModel={DEFAULT_CHAT_MODEL}
           selectedVisibilityType="private"
           isReadonly={false}
         />
-        <DataStreamHandler id={id} />
+        <DataStreamHandler id={id!} />
       </>
     );
   }
@@ -30,14 +36,14 @@ export default async function Page() {
   return (
     <>
       <Chat
-        key={id}
-        id={id}
+        key={id!}
+        id={id!}
         initialMessages={[]}
-        selectedChatModel={modelIdFromCookie.value}
+        selectedChatModel={modelIdFromCookie!}
         selectedVisibilityType="private"
         isReadonly={false}
       />
-      <DataStreamHandler id={id} />
+      <DataStreamHandler id={id!} />
     </>
   );
 }

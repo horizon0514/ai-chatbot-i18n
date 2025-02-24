@@ -1,22 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState, use } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useActionState, useEffect, useState, use, Suspense } from 'react';
 import { toast } from 'sonner';
 
 import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
 
 import { login, type LoginActionState, tokenLogin } from '../actions';
-
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { token?: string };
-}) {
+function LoginPage() {
   const router = useRouter();
-  const params = use(searchParams as any);
+  const params = useSearchParams();
+
+  const token = params.get('token');
 
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -29,10 +26,10 @@ export default function Page({
   );
 
   useEffect(() => {
-    if (params.token) {
-      tokenLogin(params.token);
+    if (token) {
+      tokenLogin(token);
     }
-  }, [params.token]);
+  }, [token]);
 
   useEffect(() => {
     if (state.status === 'failed') {
@@ -74,5 +71,13 @@ export default function Page({
         </AuthForm>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginPage />
+    </Suspense>
   );
 }

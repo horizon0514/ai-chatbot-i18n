@@ -31,18 +31,24 @@ export function ModelSelector({
   );
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger
-        asChild
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger
+          asChild
         className={cn(
           'w-fit data-[state=open]:bg-accent data-[state=open]:text-accent-foreground',
           className,
         )}
       >
-        <Button variant="outline" className="md:px-2 md:h-[34px]">
-          {selectedChatModel?.name}
-          <ChevronDownIcon />
-        </Button>
+        <div className="flex flex-row justify-between items-center">
+          <Button variant="outline" className="md:px-2 md:h-[34px]">
+            {selectedChatModel?.name}
+            <ChevronDownIcon />
+            
+          </Button>
+          <div className="ml-2 text-sm text-muted-foreground">
+            切换模型
+          </div>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-[300px]">
         {chatModels.map((chatModel) => {
@@ -76,6 +82,6 @@ export function ModelSelector({
           );
         })}
       </DropdownMenuContent>
-    </DropdownMenu>
+      </DropdownMenu>
   );
 }

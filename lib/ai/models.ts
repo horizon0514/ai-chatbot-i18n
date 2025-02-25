@@ -14,14 +14,10 @@ export const myProvider = customProvider({
   languageModels: {
     'openai/gpt-4o-mini': openai('gpt-4o-mini'),
     'openai/gpt-4o': openai('gpt-4o'),
-    'openai/gpt-4-turbo': openai('gpt-4-turbo'),
     'grok3': openai('grok-3'),
     'doubao-1.5-pro-32k': openai('doubao-1.5-pro-32k'),
     'deepseek/deepseek-v3:full': openai('deepseek/deepseek-v3:full'),
     'deepseek/deepseek-r1:free': openai('deepseek/deepseek-r1:free', {
-      simulateStreaming: true,
-    }),
-    'deepseek/deepseek-v3:free': openai('deepseek/deepseek-v3:free', {
       simulateStreaming: true,
     }),
     'deepseek-r1-distill-llama-70b': openai('deepseek-r1-distill-llama-70b', {
@@ -56,11 +52,6 @@ export const chatModels: Array<ChatModel> = [
     description: '大模型，复杂，多步骤任务',
   },
   {
-    id: 'openai/gpt-4-turbo',
-    name: 'GPT-4-turbo',
-    description: 'Turbo模型，快速，轻量级任务',
-  },
-  {
     id: 'grok3',
     name: 'Grok-3',
     description: 'Grok 3 标准版',
@@ -78,12 +69,7 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'deepseek/deepseek-r1:free',
     name: 'DeepSeek-R1',
-    description: 'DeepSeek-R1 免费版',
-  },
-  {
-    id: 'deepseek/deepseek-v3:free',
-    name: 'DeepSeek-V3-free',
-    description: 'DeepSeek-V3 免费版',
+    description: 'DeepSeek-R1',
   },
   {
     id: 'deepseek-r1-distill-llama-70b',

@@ -18,7 +18,7 @@ export const Overview = () => {
           <MessageIcon size={32} />
         </p>
         <p>
-          欢迎使用AI大模型
+          欢迎使用 <span className="font-bold text-primary text-lg">绩效智管 AI 大模型</span>
         </p>
       </div>
     </motion.div>

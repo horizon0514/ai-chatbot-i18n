@@ -8,10 +8,6 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    fontFamily: {
-      sans: ['geist'],
-      mono: ['geist-mono'],
-    },
     extend: {
       borderRadius: {
         lg: 'var(--radius)',

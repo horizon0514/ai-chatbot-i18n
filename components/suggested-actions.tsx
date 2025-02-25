@@ -16,24 +16,24 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
+      title: '中国的首都是哪里？',
+      label: '问答',
+      action: '中国的首都是哪里？',
     },
     {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
+      title: '分析一下杭州的地理优势',
+      label: `分析`,
+      action: `分析一下杭州的地理优势`,
     },
     {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
+      title: '帮我写一篇关于杭州的论文',
+      label: `写论文`,
+      action: `帮我写一篇关于杭州的论文`,
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: '杭州的气候怎么样？',
+      label: '问答',
+      action: '杭州的气候怎么样？',
     },
   ];
 
@@ -58,9 +58,9 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
                 content: suggestedAction.action,
               });
             }}
-            className="text-left border rounded-xl px-4 py-3.5 text-sm flex-1 gap-1 sm:flex-col w-full h-auto justify-start items-start"
+            className="text-left border rounded-lg px-4 py-1.5 text-sm flex-1 gap-1  w-full h-auto justify-start items-start"
           >
-            <span className="font-medium">{suggestedAction.title}</span>
+            <span className="font-medium flex-1">{suggestedAction.title}</span>
             <span className="text-muted-foreground">
               {suggestedAction.label}
             </span>

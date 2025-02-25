@@ -25,46 +25,7 @@ export function SidebarUserNav({ user }: { user: User }) {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent bg-background data-[state=open]:text-sidebar-accent-foreground h-10">
-              <Image
-                src={`https://avatar.vercel.sh/${user.email}`}
-                alt={user.email ?? 'User Avatar'}
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <span className="truncate">{user?.name || user?.email}</span>
-              <ChevronUp className="ml-auto" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            side="top"
-            className="w-[--radix-popper-anchor-width]"
-          >
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onSelect={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            >
-              {`切换${theme === 'light' ? '暗黑' : '明亮'}模式`}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <button
-                type="button"
-                className="w-full cursor-pointer"
-                onClick={() => {
-                  signOut({
-                    redirectTo: '/',
-                  });
-                }}
-              >
-                退出登录
-              </button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* <span className="truncate">{user?.name || user?.email}</span> */}
       </SidebarMenuItem>
     </SidebarMenu>
   );

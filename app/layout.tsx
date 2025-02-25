@@ -6,7 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'AI大模型',
+  title: '绩效智管',
   description: 'AI大模型',
 };
 
@@ -58,8 +58,8 @@ export default async function RootLayout({
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Toaster position="top-center" />

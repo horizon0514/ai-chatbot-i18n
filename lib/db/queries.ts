@@ -24,14 +24,22 @@ import { v4 as uuidv4 } from 'uuid';
 // https://authjs.dev/reference/adapter/drizzle
 
 // biome-ignore lint: Forbidden non-null assertion.
+console.log('process.env.POSTGRES_URL', process.env.POSTGRES_URL!);
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {
     return await db.select().from(user).where(eq(user.email, email));
-  } catch (error) {
+  } catch (error: any) {
     console.error('Failed to get user from database');
+    console.error('Failed to get user from database:', {
+      error: error,
+      stack: error.stack,
+      message: error.message,
+      details: error.details, // 如果有的话
+      email: email // 帮助调试的上下文
+    });
     throw error;
   }
 }

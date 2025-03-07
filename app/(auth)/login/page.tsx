@@ -47,6 +47,19 @@ function LoginPage() {
     formAction(formData);
   };
 
+  if(token) {
+    return (
+      <div className="flex h-dvh w-screen items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-3">
+          <div className="size-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <div className="text-sm text-muted-foreground">
+            加载中...
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-dvh w-screen items-start pt-12 md:pt-0 md:items-center justify-center bg-background">
       <div className="w-full max-w-md overflow-hidden rounded-2xl flex flex-col gap-12">

@@ -2,8 +2,14 @@ import { createOpenAI } from '@ai-sdk/openai';
 import {
   customProvider,
 } from 'ai';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 
 const openai = createOpenAI({
+  baseURL: 'https://geekai.co/api/v1',
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const deepseek = createDeepSeek({
   baseURL: 'https://geekai.co/api/v1',
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -16,14 +22,16 @@ export const myProvider = customProvider({
     'openai/gpt-4o': openai('gpt-4o'),
     'grok3': openai('grok-3'),
     'doubao-1.5-pro-32k': openai('doubao-1.5-pro-32k'),
-    'deepseek/deepseek-v3:full': openai('deepseek/deepseek-v3:full'),
-    'deepseek/deepseek-r1:free': openai('deepseek/deepseek-r1:free', {
+    'deepseek/deepseek-v3:full': deepseek('deepseek/deepseek-v3:full', {
       simulateStreaming: true,
     }),
-    'deepseek-r1-distill-llama-70b': openai('deepseek-r1-distill-llama-70b', {
+    'deepseek/deepseek-r1:full': deepseek('deepseek/deepseek-r1:full', {
       simulateStreaming: true,
     }),
-    'deepseek-r1-distill-qwen-32b': openai('deepseek-r1-distill-qwen-32b', {
+    'deepseek-r1-distill-llama-70b': deepseek('deepseek-r1-distill-llama-70b', {
+      simulateStreaming: true,
+    }),
+    'deepseek-r1-distill-qwen-32b': deepseek('deepseek-r1-distill-qwen-32b', {
       simulateStreaming: true,
     }),
     'chat-model-reasoning': openai('sonar-reasoning', {
@@ -67,9 +75,9 @@ export const chatModels: Array<ChatModel> = [
     description: 'DeepSeek-V3 满血版',
   },
   {
-    id: 'deepseek/deepseek-r1:free',
+    id: 'deepseek/deepseek-r1:full',
     name: 'DeepSeek-R1',
-    description: 'DeepSeek-R1',
+    description: 'DeepSeek-R1 满血版',
   },
   {
     id: 'deepseek-r1-distill-llama-70b',

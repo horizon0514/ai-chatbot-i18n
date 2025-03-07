@@ -100,6 +100,9 @@ export async function POST(request: Request) {
                 reasoning,
               });
 
+              console.log('response', response);
+              console.log('reasoning', reasoning);
+
               await saveMessages({
                 messages: sanitizedResponseMessages.map((message) => {
                   return {

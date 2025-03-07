@@ -66,12 +66,17 @@ export async function POST(request: Request) {
   });
 
   return createDataStreamResponse({
+    headers: {
+      'Transfer-Encoding': 'chunked',
+      Connection: 'keep-alive',
+    },
     execute: (dataStream) => {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
         system: systemPrompt({ selectedChatModel }),
         messages,
         maxSteps: 5,
+        temperature: 0.6,
         experimental_activeTools:
           selectedChatModel === 'chat-model-reasoning'
             ? []

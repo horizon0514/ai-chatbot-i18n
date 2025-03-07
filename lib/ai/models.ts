@@ -23,19 +23,14 @@ export const myProvider = customProvider({
     'grok3': openai('grok-3'),
     'doubao-1.5-pro-32k': openai('doubao-1.5-pro-32k'),
     'deepseek/deepseek-v3:full': deepseek('deepseek/deepseek-v3:full', {
-      simulateStreaming: true,
     }),
     'deepseek/deepseek-r1:full': deepseek('deepseek/deepseek-r1:full', {
-      simulateStreaming: true,
     }),
     'deepseek-r1-distill-llama-70b': deepseek('deepseek-r1-distill-llama-70b', {
-      simulateStreaming: true,
     }),
     'deepseek-r1-distill-qwen-32b': deepseek('deepseek-r1-distill-qwen-32b', {
-      simulateStreaming: true,
     }),
     'chat-model-reasoning': openai('sonar-reasoning', {
-      simulateStreaming: true,
     }),// 这个模型是用来联网推理的，必须。
     'title-model': openai('gpt-4o-mini'), // 这个模型是用来生成标题的，必须。
     'artifact-model': openai('gpt-4o-mini'), // 这个模型是用来生成artifact的，必须。否则写文章会报错
@@ -78,15 +73,5 @@ export const chatModels: Array<ChatModel> = [
     id: 'deepseek/deepseek-r1:full',
     name: 'DeepSeek-R1',
     description: 'DeepSeek-R1 满血版',
-  },
-  {
-    id: 'deepseek-r1-distill-llama-70b',
-    name: 'DeepSeek-R1-Distill-Llama-70b',
-    description: 'DeepSeek-R1 蒸馏版 Llama 70b',
-  },
-  {
-    id: 'deepseek-r1-distill-qwen-32b',
-    name: 'DeepSeek-R1-Distill-Qwen-32b',
-    description: 'DeepSeek-R1 蒸馏版 Qwen 32b',
-  },
+  }
 ];
